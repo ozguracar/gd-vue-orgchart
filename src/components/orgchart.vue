@@ -42,8 +42,6 @@ import panzoom from "panzoom";
 import Vue from "vue";
 import TableComponent from "./table";
 import NodeComponent from "./node";
-import "../assets/fonts/remixicon.css";
-import "../assets/style.css";
 import LoaderComponent from "./Loader.vue";
 export default {
   components: { TableComponent },
@@ -198,7 +196,7 @@ export default {
     if (this.opts.panzoom) {
       this.panzoom = panzoom(chart, {
         maxZoom: 3,
-        minZoom: 0.01,
+        minZoom: 0.5,
         bounds: true,
         boundsPadding: 0.1,
       });
@@ -260,6 +258,9 @@ export default {
     },
     onDragStart(data, event) {
       this.panzoom.pause();
+      if (!this.opts.draggable) {
+        return;
+      }
       const nodeDiv = event.target;
       const opts = this.opts;
       const isFirefox = /firefox/.test(
@@ -371,6 +372,9 @@ export default {
       return {};
     },
     onDrag(data, event) {
+      if (!this.opts.draggable) {
+        return;
+      }
       this.checkMove = false;
       this.move = {
         x: this.transform.x,
@@ -433,6 +437,9 @@ export default {
       return object.data;
     },
     onDragOver(data, event) {
+      if (!this.opts.draggable) {
+        return;
+      }
       event.preventDefault();
       const dropZone = event.currentTarget;
 
@@ -441,14 +448,22 @@ export default {
       }
     },
     onDragEnd() {
-      Array.from(this.chart.querySelectorAll(".allowedDrop")).forEach((el) => {
-        el.classList.remove("allowedDrop");
-      });
+      if (this.opts.draggable) {
+        Array.from(this.chart.querySelectorAll(".allowedDrop")).forEach(
+          (el) => {
+            el.classList.remove("allowedDrop");
+          }
+        );
+      }
+
       if (!this.spinner) {
         this.panzoom.resume();
       }
     },
     onDrop(data, event) {
+      if (!this.opts.draggable) {
+        return;
+      }
       const dropZone = event.currentTarget;
       const copyData = JSON.parse(
         JSON.stringify({
@@ -638,110 +653,5 @@ export default {
   },
 };
 </script>
-<style>
-.search-box {
-  width: 100%;
-  max-width: 500px;
-  margin: 50px auto;
-  position: relative;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  z-index: 6;
-}
-.search-box i.search-button {
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 10px);
-  font-size: 20px;
-  color: #707070;
-  cursor: pointer;
-}
-.search-box input {
-  width: 100%;
-  height: 60px;
-  border: none;
-  border-bottom: 2px solid #e8ebf0;
-  line-height: 60px;
-  font-weight: 500;
-  color: #333;
-  outline: none;
-  background: transparent;
-  font-size: 10px;
-  font-size: 20px;
-  font-family: "Poppins", sans-serif;
-  padding: unset;
-}
-.search-box input.center {
-  text-align: center;
-}
-.search-box input:focus {
-  border-color: #eee;
-  background: #fff;
-}
-.search-list {
-  width: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 6;
-  left: 0;
-  margin-top: -65px;
-  font-family: "Poppins", sans-serif;
-}
-
-.search-list ul {
-  width: 100%;
-  max-width: 500px;
-  padding: 0 15px;
-  max-height: 250px;
-  overflow: auto;
-}
-.search-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 5px 10px;
-  background: #fff;
-  border-bottom: 1px solid #e4f1fe;
-  font-family: "Poppins", sans-serif;
-  box-sizing: border-box;
-}
-.search-list li:last-child {
-  border-bottom: none;
-}
-.search-list li .search-list-left {
-  width: 100%;
-  line-height: 18px;
-}
-.search-list li .search-list-left.has-button {
-  width: 80%;
-}
-.search-list li .search-list-left h6 {
-  margin: 0;
-  font-size: 14px;
-  color: #00c9a7;
-  font-weight: 500;
-  font-family: "Poppins", sans-serif;
-}
-.search-list li .search-list-left span {
-  font-size: 13px;
-  color: #707070;
-  font-weight: 400;
-}
-.search-list li .search-list-right {
-  width: 20%;
-}
-.search-list li .search-list-right button {
-  outline: none;
-  background: #00c9a7;
-  color: #fff;
-  border: none;
-  font-family: "Poppins", sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 7px 15px;
-  cursor: pointer;
-}
-</style>
+<style src="../assets/fonts/remixicon.css"></style>
+<style src="../assets/style.css"></style>

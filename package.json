@@ -1,6 +1,6 @@
 {
   "name": "gd-vue-orgchart",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "It is a simple organizational chart creation plugin powered by Vue.",
   "author": {
     "name": "Ozgur Acar",
