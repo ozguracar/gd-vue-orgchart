@@ -1,0 +1,61 @@
+{
+  "name": "gd-vue-orgchart",
+  "version": "0.1.1",
+  "description": "It is a simple organizational chart creation plugin powered by Vue.",
+  "author": {
+    "name": "Ozgur Acar",
+    "email": "ozgurraca@gmail.com"
+  },
+  "private": false,
+  "license": "MIT",
+  "main": "./dist/gd-vue-orgchart.umd.js",
+  "repository": "https://github.com/ozguracar/gd-vue-orgchart",
+  "bugs": "https://github.com/ozguracar/gd-vue-orgchart/issues",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "build-library": "vue-cli-service build --target lib --name gd-vue-orgchart ./src/install.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "panzoom": "^9.4.1",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "keywords": [
+    "keywords",
+    "go",
+    "here"
+  ]
+}
